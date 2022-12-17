@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+
+spring:
+  security:
+    user:
+      name: p
+      password: a
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/oms
+    username: root
+    password: password
+
+
+logging:
+  level:
+    org:
+      kav:
+        ordermanagementsvc: DEBUG
