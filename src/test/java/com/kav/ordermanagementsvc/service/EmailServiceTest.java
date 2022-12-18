@@ -46,6 +46,7 @@ public class EmailServiceTest {
         List<Customer> platinumCustomers= new ArrayList<>();
         platinumCustomers.add(customer2);
 
+
         when(customerRepository.findByNoOfOrders(anyInt())).thenReturn(goldCustomers,
                 platinumCustomers);
         EmailService spy =spy(emailService);
