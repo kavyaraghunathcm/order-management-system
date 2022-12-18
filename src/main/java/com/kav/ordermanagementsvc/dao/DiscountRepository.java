@@ -9,6 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface DiscountRepository extends JpaRepository<Discount,Long> {
+
     @Query("select d from Discount d where d.customer = :customer")
     Page<Discount> findAllByCustomer(@Param("customer") Customer customer, Pageable pageable);
+
+    @Query("select d from Discount d where d.order.id = ?1")
+    Discount findByOrderId(Long orderId);
+
+
 }

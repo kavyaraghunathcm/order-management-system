@@ -1,5 +1,6 @@
 package com.kav.ordermanagementsvc.service;
 
+import com.kav.ordermanagementsvc.constants.Level;
 import com.kav.ordermanagementsvc.dao.CustomerRepository;
 import com.kav.ordermanagementsvc.dto.CustomerDto;
 import com.kav.ordermanagementsvc.dto.ListResponseDto;
@@ -27,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
+        customerDto.setLevel(Level.REGULAR);
         return modelMapper.map(customerRepository.save(modelMapper.map(customerDto, Customer.class)), CustomerDto.class);
     }
 

@@ -20,10 +20,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -56,7 +59,7 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     @Async("asyncExecutor")
-    public void generateDiscount(long orderId) {
+    public Future<Discount> generateDiscount(long orderId) {
         Optional<Order> orderOptional = orderRepository.findById(orderId);
         if (orderOptional.isPresent()) {
             Order order = orderOptional.get();
@@ -80,13 +83,14 @@ public class DiscountServiceImpl implements DiscountService {
                     discount.setAmount(order.getPayment() * customer.getLevel().discount);
                     discountRepository.save(discount);
                     orderRepository.save(order);
-                    Thread.sleep(400);
+                    return new AsyncResult<Discount>(discount);
                 } catch (Exception e) {
                     System.out.println("Exception occurred while generating discount for order with id " + orderId
                             + "\n Sending Email with error details: " + e);
                 }
             }
         }
+        return null;
     }
 
     @Override

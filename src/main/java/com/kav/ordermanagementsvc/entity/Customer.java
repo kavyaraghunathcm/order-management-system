@@ -2,9 +2,7 @@ package  com.kav.ordermanagementsvc.entity;
 
 
 import com.kav.ordermanagementsvc.constants.Level;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id
